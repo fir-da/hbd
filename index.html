@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8">
@@ -48,13 +49,12 @@
 
 <body class="bg-gradient-to-br from-jingga-1 via-jingga-2 to-jingga-3 min-h-screen flex items-center justify-center p-4 sm:p-5 overflow-hidden">
 
+  <!-- === INI YANG DITAMBAHKAN: Tag Audio === -->
+  <audio id="laguUltah" src="Happy Birthday to You (Guitar).mp3" preload="auto"></audio>
+
   <!-- ==========================================
        KARTU UTAMA (Dioptimalkan untuk HP)
   =========================================== -->
-  <!-- 
-    w-[90%] max-w-[400px] : Lebar 90% layar HP, maksimal 400px di PC
-    h-[75vh] min-h-[480px] : Tinggi 75% layar HP, tidak akan kurang dari 480px
-  -->
   <div class="relative w-[90%] max-w-[400px] h-[75vh] min-h-[480px] max-h-[600px] bg-white rounded-3xl shadow-2xl overflow-hidden">
     
     <!-- 1. BAGIAN DALAM KARTU (Pesan) -->
@@ -62,7 +62,6 @@
       <div class="w-16 h-16 sm:w-20 sm:h-20 mb-3 sm:mb-4 text-5xl">🎂</div>
       <h2 class="font-title text-2xl sm:text-3xl text-jingga-3 mb-3 sm:mb-4 leading-tight">Happy Birthday,<br>Farekha!</h2>
       
-      <!-- Teks akan menyesuaikan ukuran (13px di HP, 15px di PC) -->
       <p class="font-body text-jingga-4 text-[13.5px] sm:text-[15px] leading-relaxed mb-5 sm:mb-6 font-medium px-2">
         Selamat bertambah usia! Semoga hari-harimu selalu dipenuhi kebahagiaan, rezeki yang lancar, dan semua impian baikmu segera terwujud. 
         <br><br>
@@ -76,7 +75,6 @@
     <div id="coverKartu" class="absolute inset-0 bg-white p-5 sm:p-7 flex flex-col items-center justify-center text-center z-10 transition-transform duration-700 ease-in-out origin-top border-[5px] border-white">
       <div class="bg-jingga-1 w-full h-full rounded-2xl flex flex-col items-center justify-center p-5 sm:p-6 shadow-inner relative overflow-hidden border border-jingga-2/30">
         
-        <!-- Ornamen Dekorasi -->
         <div class="absolute -top-4 -right-4 w-16 h-16 bg-white/50 rounded-full blur-xl"></div>
         <div class="absolute -bottom-4 -left-4 w-20 h-20 bg-white/50 rounded-full blur-xl"></div>
 
@@ -97,6 +95,14 @@
     function bukaKartu() {
       const cover = document.getElementById('coverKartu');
       const pesan = document.getElementById('pesanDalam');
+      
+      // === INI YANG DITAMBAHKAN: Memanggil Lagu ===
+      const lagu = document.getElementById('laguUltah');
+
+      // === INI YANG DITAMBAHKAN: Memutar Lagu ===
+      lagu.play().catch(error => {
+        console.log("Audio tertahan oleh browser:", error);
+      });
 
       // 1. Animasi membuka cover (terlipat ke atas dan menghilang)
       cover.style.transform = 'translateY(-100%) scale(0.9)';
@@ -107,7 +113,7 @@
         pesan.style.opacity = '1';
         pesan.style.transform = 'scale(1)';
         
-        // 3. Ledakan Confetti 🎉 (Diperbanyak sedikit agar lebih meriah di HP)
+        // 3. Ledakan Confetti 🎉
         fireConfetti();
       }, 350); 
     }
